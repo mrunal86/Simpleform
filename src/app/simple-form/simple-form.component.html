@@ -1,0 +1,66 @@
+<div class="row" class="pt-xl-5">
+    <div class="col-md-8 col-xl-6 mx-auto">
+      <div class="card mt-1">
+        <div class="header" class="p-2">
+          <h3>Team Introduction</h3>
+        </div>
+  
+        <div class="body" class="p-2">
+          <form [formGroup]="simpleform"  #FormD="ngForm">
+             
+         <div [hidden]="FormD.submitted">
+            <div class="form-group form-row">
+              <label for="Name" class="col-md-4 col-form-label">Name</label>
+              <div class="col-md-8">
+                <input type="text" name="Name" id="Name" placeholder="Name" class="form-control" formControlName="Name"
+                [ngClass]="{'is-invalid':simpleform.get('Name').invalid && (simpleform.get('Name').dirty
+                ||simpleform.get('Name').touched)}">
+
+                <span class="text-danger" *ngIf="simpleform.get('Name').invalid && (simpleform.get('Name').dirty ||
+                    simpleform.get('Name').touched)"> Name is required
+                </span>
+                <span class="text-danger" *ngIf="
+                  simpleform.get('Name').errors?.minlength"> Name is min 3 char
+                </span>
+              </div> 
+            </div>
+  
+            <div class="form-group form-row">
+              <label for="Fun Fact" class="col-md-4 col-form-label">Enter fun fact about yourself</label>
+              <div class="col-md-8">
+                <textarea class="form-control rounded-0" id="funfact" class="form-control" formControlName="funfact"
+                [ngClass]="{'is-invalid':simpleform.get('funfact').invalid && (simpleform.get('funfact').dirty
+                ||simpleform.get('funfact').touched)}">
+                </textarea>
+                
+                <span class="text-danger" *ngIf="simpleform.get('funfact').invalid && (simpleform.get('funfact').dirty
+                ||simpleform.get('funfact').touched)">Funfact is required</span> 
+                 
+                <span class="text-danger" *ngIf="simpleform.get('funfact').errors?.minlength"> funfact should be min 10 char
+                </span>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div  class="col-12 col-lg-6 text-right">
+                  <button class="btn btn-primary" [disabled]="simpleform.invalid" type="submit">Submit </button>
+              </div> 
+              <div class="col-12 col-lg-6 ">
+                <input class="btn btn-primary" (click)="FormD.resetForm({})" type="reset" value="Reset"> 
+              </div> 
+           
+          </div>
+        </div>
+        </form>
+
+        <div class="submitted-message"  *ngIf="FormD.submitted">
+           <p>You've submitted form {{ simpleform.value |json }} </p>
+            <button (click)="FormD.resetForm({})">Add new member</button>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
